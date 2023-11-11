@@ -1,0 +1,216 @@
+/*******************
+Main sidebar
+******************/
+
+mat-sidenav {
+  width: 240px;
+  padding-top: 0px;
+}
+
+#snav {
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+  overflow-x: hidden;
+
+  .mat-mdc-list-base {
+    padding-top: 1px;
+  }
+
+  .mat-icon {
+    margin-right: 5px;
+    padding-top: 4px;
+  }
+
+  .mat-mdc-list-item {
+    margin: 3px 6px 0px 10px;
+    height: auto;
+    padding: 5px 15px;
+
+
+    span.mdc-list-item__primary-text {
+      white-space: break-spaces;
+      overflow: hidden;
+    }
+
+    &.selected {
+      border-radius: 0.3125rem;
+
+      span.mdc-list-item__content {
+        color: $themecolor !important;
+      }
+
+      span.mdc-list-item__primary-text {
+        color: $themecolor !important;
+      }
+    }
+  }
+
+  .mat-mdc-nav-list {
+    font-size: 0.9375rem;
+
+    .mat-expansion-panel {
+      box-shadow: none;
+    }
+
+    .mat-expansion-panel:first-of-type {
+      border-top-right-radius: 0px;
+      border-top-left-radius: 0px;
+    }
+
+    .mat-expansion-panel:last-of-type {
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+
+    .mat-expansion-panel-header {
+      margin: 3px 6px 0px 10px;
+      padding: 0 15px;
+      height: 40px;
+      border-radius: 0.3125rem 0.3125rem 0rem 0rem;
+
+      &.mat-expanded {
+        background-color: #f5f9ff;
+        color: $themecolor;
+
+        .mat-expansion-panel-header-title>div {
+          color: $themecolor;
+        }
+
+        .mat-expansion-indicator::after {
+          color: $themecolor;
+        }
+      }
+    }
+
+    .mat-expansion-panel-body {
+      border-radius: 0rem 0rem 0.3125rem 0.3125rem;
+      margin: 0px 6px 10px 10px;
+      background-color: #f5f9ff;
+      padding: 0 10px 10px;
+
+      .mat-mdc-list-item {
+        height: auto;
+        padding: 5px 10px;
+        margin: 5px 0px 0px 0px;
+      }
+    }
+  }
+}
+
+/*******************
+  use profile section
+  ******************/
+.user-profile {
+  position: relative;
+  background-size: cover;
+
+  .profile-img {
+    width: 50px;
+    margin-left: 30px;
+    padding: 31px 0;
+    border-radius: 100%;
+
+    &::before {
+      -webkit-animation: 2.5s blow 0s linear infinite;
+      animation: 2.5s blow 0s linear infinite;
+      position: absolute;
+      content: "";
+      width: 50px;
+      height: 50px;
+      top: 31px;
+      margin: 0 auto;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    @-webkit-keyframes blow {
+      0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 0.5);
+        transform: scale3d(1, 1, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 0.5);
+        transform: scale3d(1, 1, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        -webkit-transform: scale3d(1, 1, 0.5);
+        transform: scale3d(1, 1, 0.5);
+      }
+    }
+
+    @keyframes blow {
+      0% {
+        box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 0.5);
+        transform: scale3d(1, 1, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 0.5);
+        transform: scale3d(1, 1, 0.5);
+      }
+
+      100% {
+        box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        -webkit-transform: scale3d(1, 1, 0.5);
+        transform: scale3d(1, 1, 0.5);
+      }
+    }
+
+    img {
+      width: 100%;
+      border-radius: 100%;
+    }
+  }
+
+  .profile-text {
+    padding: 5px 0px;
+    position: relative;
+    cursor: pointer;
+    white-space: nowrap;
+
+    >a {
+      color: #dbe4f3 !important;
+      width: 100%;
+      padding: 6px 30px;
+      background: rgba(0, 0, 0, 0.5);
+      display: block;
+      white-space: nowrap;
+
+      &:after {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
+    }
+  }
+}
+
+.sidebar-closed #snav {
+  &.mat-sidenav~.mat-drawer-content {
+    margin-left: 0px !important;
+  }
+}
+
+.mat-drawer-backdrop {
+  z-index: 1;
+}
+
+.mat-drawer.mat-drawer-side {
+  z-index: 1 !important;
+
+  .btn:active {
+    border-color: transparent !important;
+  }
+}

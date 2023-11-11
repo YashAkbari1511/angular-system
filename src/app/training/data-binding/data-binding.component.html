@@ -1,0 +1,40 @@
+<p>
+	Employee List
+</p>
+<table border="1" class="custom-table-wrapper">
+	<thead>
+		<th>S. No.</th>
+		<th>Employee ID</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Phone No.</th>
+		<th>Salary</th>
+		<th>Status</th>
+		<th>D.O.B</th>
+		<th>Created At</th>
+	</thead>
+	<tbody>
+		<ng-container *ngIf="employees$ | async as employees; else elseBlock">
+			<tr *ngFor="let employee of employees; let i = index">
+				<td>{{i+1}}</td>
+				<td>{{employee.id}}</td>
+				<td>{{employee.employee_firstName}}</td>
+				<td>{{employee.employee_lastName}}</td>
+				<td>{{employee.employee_email}}</td>
+				<td>{{employee.employee_phone}}</td>
+				<td>{{employee.employee_salary}}</td>
+				<td>{{employee.employee_status}}</td>
+				<td>{{employee.employee_dob}}</td>
+				<td>{{employee.employee_createdAt}}</td>
+			</tr>
+		</ng-container>
+		<ng-template #elseBlock>
+			<tr>
+				<td colspan="10">
+					Loading Employees...
+				</td>
+			</tr>
+		</ng-template>
+	</tbody>
+</table>

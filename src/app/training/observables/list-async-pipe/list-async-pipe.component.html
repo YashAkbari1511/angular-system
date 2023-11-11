@@ -1,0 +1,51 @@
+<div class="card ">
+    <div class="card-header  datatable-custom-header ">
+        List using async pipe
+    </div>
+    <input type="text" placeholder="Search" #search class="mw-100 m-3">
+    <div class="card-body overflow-scroll">
+        <table style="width: 100%;" class="table table-striped ">
+            <th>API</th>
+            <th>Auth</th>
+            <th>HTTPS</th>
+            <th>Cors</th>
+            <th>Category</th>
+            <th>ACTION</th>
+            <tbody>
+                <ng-container *ngIf="entries$ | async as entries; else processing">
+                    <tr>
+                        <td [colSpan]="3" style="text-align: left;">
+                        </td>
+                        <td [colSpan]="3" style="text-align: right;">
+                            <button class="btn btn-primary" style="float: right;"
+                                (click)="addItem(entries)">Add</button>
+                        </td>
+                    </tr>
+                    <ng-container *ngIf="entries.length; else noData">
+                        <tr *ngFor="let entryRow of entries; let i=index">
+                            <td class="col">{{ entryRow.API }}</td>
+                            <td class="col">{{ entryRow.Auth }}</td>
+                            <td class="col">{{ entryRow.HTTPS }}</td>
+                            <td class="col">{{ entryRow.Cors }}</td>
+                            <td class="col">{{ entryRow.Category }}</td>
+                            <td class="col">
+                                <a href="javascript:void(0)" (click)="editItem(entries, i)">Edit</a>
+                                | <a href="javascript:void(0)" (click)="deleteItem(entries, i)">Delete</a>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #noData>
+                        <tr>
+                            <td [colSpan]="6">No data found</td>
+                        </tr>
+                    </ng-template>
+                </ng-container>
+                <ng-template #processing>
+                    <tr>
+                        <td [colSpan]="6">Please wait...</td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</div>

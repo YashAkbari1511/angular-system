@@ -1,0 +1,50 @@
+<div class="row" *ngIf="!isMultiContentProjection; else multislot">
+    <!-- <div class="grid grid-cols-2 gap-8"> -->
+    <div class="col-lg-6 col-sm-12">
+        <wcg-data-view icon="info" caption="Name">
+            <span class="font-bold" (click)="printData('Atul Agrawal')">Atul Agrawal</span>
+        </wcg-data-view>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <wcg-data-view icon="event" caption="Date of Birth">
+            1st October 1985
+        </wcg-data-view>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <wcg-data-view icon="paid" caption="Balance">
+            {{100 | currency}}
+        </wcg-data-view>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <wcg-data-view icon="account_circle" caption="Status">
+            <span class="px-2 bg-green-500 rounded-xl">Active</span>
+        </wcg-data-view>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <wcg-data-view icon="portrait" caption="Photo">
+            <img wcgImageLoader src="https://source.unsplash.com/WMD64tMfc4k/200x200">
+        </wcg-data-view>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <wcg-data-view icon="text_snippet" caption="Short bio">
+            <div>
+                Hey, I'm Atul. I <strong>love</strong> creating rich interactive apps on the <strong>Angular
+                    framework</strong>.
+            </div>
+        </wcg-data-view>
+    </div>
+</div>
+<!-- </div> -->
+
+<ng-template #multislot>
+    <div class="row">
+        Default:
+        <ng-content></ng-content>
+
+        Question:
+        <ng-content select="[question]"></ng-content>
+
+        Answer:
+        <ng-content select="[answer]"></ng-content>
+    </div>
+</ng-template>

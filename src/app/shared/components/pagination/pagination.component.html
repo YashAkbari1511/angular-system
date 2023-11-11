@@ -1,0 +1,46 @@
+<div class="row" style="margin: 0px;">
+    <div class="col-auto" *ngIf="showTotalRecords">
+        <div class="row">
+            <div class="text-black-50 mt-4" *ngIf="totalRecords">
+                <b>Total Records:</b> {{totalRecords | number}}
+            </div>
+        </div>
+    </div>
+    <div class="col-auto" *ngIf="showPageSizeOptions">
+        <div class="row">
+            <div class="col-auto mt-4">
+                <span class="text-black-50"><b>Records per page:</b></span>
+            </div>
+            <div class="col-auto mt-3" style="min-width: 100px;">
+                <ng-select [clearable]="false" [searchable]="false" [items]="pageSizeOptions" [appendTo]="'body'"
+                    [(ngModel)]="recordsPerPage" (ngModelChange)="changePageSize($event)">
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-auto mt-4" *ngIf="showCurrentPageInfo">
+        <span class="text-black-50"><b>Page: {{activePage}} of {{pageCount}}</b></span>
+    </div>
+    <div class="col-auto mt-3">
+        <nav aria-label="pagignation">
+            <ul class="pagination">
+                <li *ngIf="showBoundaryLinks" class="page-item" [class.disabled]="activePage === 1">
+                    <a class="page-link" href="javascript:void(0);" (click)="changePage(1)">««</a>
+                </li>
+                <li class="page-item" [class.disabled]="activePage === 1">
+                    <a class="page-link" href="javascript:void(0);" (click)="changePage(activePage - 1)">«</a>
+                </li>
+                <li class="page-item"  [ngClass]="{'active': activePage === item}"
+                    *ngFor="let item of pages" (click)="changePage(item)">
+                    <a class="page-link" href="javascript:void(0);">{{item}}</a>
+                </li>
+                <li class="page-item" [class.disabled]="activePage === pageCount">
+                    <a class="page-link" href="javascript:void(0);" (click)="changePage(activePage + 1)">»</a>
+                </li>
+                <li *ngIf="showBoundaryLinks" class="page-item" [class.disabled]="activePage === pageCount">
+                    <a class="page-link" (click)="changePage(pageCount)" href="javascript:void(0);">»»</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

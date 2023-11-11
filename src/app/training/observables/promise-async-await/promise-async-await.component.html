@@ -1,0 +1,53 @@
+<div *ngIf="promiseOutPut.length" class="card" style="width: 98%; margin: 1%; float: left;">
+    <div class="card-header flex-wrap datatable-custom-header">Promise OutPut</div>
+    <div class="card-body">
+        <ul>
+            <li *ngFor="let promiseRow of promiseOutPut">{{ promiseRow }}</li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="nestedPromiseOutPut.length" class="card" style="width: 98%; margin: 1%; float: left;">
+    <div class="card-header flex-wrap datatable-custom-header">Nested Promise OutPut</div>
+    <div class="card-body">
+        <ul>
+            <li *ngFor="let nestedPromiseRow of nestedPromiseOutPut">{{ nestedPromiseRow | json}}</li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="promiseAllOutPut.length" class="card" style="width: 98%; margin: 1%; float: left;">
+    <div class="card-header flex-wrap datatable-custom-header">Promise All OutPut</div>
+    <div class="card-body">
+        <ul>
+            <li *ngFor="let promiseAllRow of promiseAllOutPut">{{ promiseAllRow | json}}</li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="forkJoinOutPut.length" class="card" style="width: 98%; margin: 1%; float: left;">
+    <div class="card-header flex-wrap datatable-custom-header">Fork Join OutPut</div>
+    <div class="card-body">
+        <ul>
+            <li *ngFor="let forkJoinRow of forkJoinOutPut">{{ forkJoinRow | json}}</li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="asyncAwaitOutPut.length" class="card" style="width: 98%; margin: 1%;">
+    <div class="card-header flex-wrap datatable-custom-header">Async-Await OutPut</div>
+    <div class="card-body">
+        <ul>
+            <li *ngFor="let asyncAwaitRow of asyncAwaitOutPut">{{ asyncAwaitRow | json }}</li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="serviceOutPut.length" class="card" style="width: 98%; margin: 1%;">
+    <div class="card-header flex-wrap datatable-custom-header">Service Demo OutPut</div>
+    <div class="card-body">
+        <ul>
+            <li *ngFor="let serviceRow of serviceOutPut">{{ serviceRow | json }}</li>
+        </ul>
+    </div>
+</div>

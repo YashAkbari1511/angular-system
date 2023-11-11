@@ -1,0 +1,17 @@
+<div *ngIf="alertArray.length">
+    <div *ngFor="let alert of alertArray; let i=index"
+        class="alert alert-{{alert?.type}} d-flex align-items-center alert-dismissible fade show text-white"
+        role="alert">
+        <mat-icon [ngSwitch]="alert.type">
+            <span *ngSwitchCase="'success'">check</span>
+            <span *ngSwitchCase="'danger'">cancel</span>
+            <span *ngSwitchCase="'info'">info</span>
+            <span *ngSwitchCase="'warning'">warning</span>
+        </mat-icon>
+        <div style="padding-left: 10px;">
+            <h4 style="font-weight: bold;" class="m-0 p-0" *ngIf="alert.title">{{alert.title}}</h4>
+            <span *ngIf="alert.message">{{alert.message}}</span>
+            <button type="button" class="btn-close" aria-label="Close" (click)="dismissAlert(i)"></button>
+        </div>
+    </div>
+</div>

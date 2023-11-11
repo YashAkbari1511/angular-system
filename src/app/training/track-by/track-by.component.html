@@ -1,0 +1,32 @@
+<!-- track by start-->
+<!-- <h3>Track By Example</h3> -->
+<div class="card">
+    <div class="card-header flex-wrap datatable-custom-header overflow-scroll">
+        <h4>Employee list</h4>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of store; trackBy: trackByFn">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.f_name }}</td>
+                    <td>{{ item.l_name }}</td>
+                    <td>{{ item.mobile }}</td>
+                    <td>{{ item.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button (click)="getNewData()">Load More</button>
+    </div>
+</div>
+
+<!-- track by end -->

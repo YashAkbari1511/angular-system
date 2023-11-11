@@ -1,0 +1,9 @@
+<wcg-single-contet-projection [isMultiContentProjection]="true">
+    <p>Starting child component for content projection!</p>
+    <ng-container ngProjectAs="[question]">
+        <p>Is content projection cool - Question 1 ?</p>
+    </ng-container>
+    <p question>Is content projection cool - Question 2 ?</p>
+    <p answer>answer of the question</p>
+    <p>Let's learn about content projection!</p>
+</wcg-single-contet-projection>

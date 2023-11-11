@@ -1,0 +1,114 @@
+<div class="container">
+    <div>
+        <h5>User</h5>
+        <!-- <div>Is validation enabled ? -
+            <select class="form-control" name="validationEnabled" [(ngModel)]="validationEnabled">
+                <option [ngValue]="true">Yes</option>
+                <option [ngValue]="false">No</option>
+            </select>
+        </div>
+        <br> -->
+        <form name="userForm" #userForm="ngForm" (ngSubmit)="saveUserData(userForm)" autocomplete="off">
+            <ng-container ngModelGroup="name">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" #firstname="ngModel"
+                        [(ngModel)]="userData.firstname" required
+                        [ngClass]="{'invalid-data': (userForm?.submitted || firstname?.touched) && firstname?.invalid && validationEnabled}">
+                    <div *ngIf="(userForm?.submitted || firstname?.touched) && firstname?.invalid && validationEnabled">
+                        <ul class="error">
+                            <li *ngIf="firstname.hasError('required')" style="color: red;">First Name is required.</li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" #lastname="ngModel"
+                        [(ngModel)]="userData.lastname" required
+                        [ngClass]="{'invalid-data': (userForm?.submitted || lastname?.touched) && lastname?.invalid && validationEnabled}">
+                    <div *ngIf="(userForm?.submitted || lastname?.touched) && lastname?.invalid && validationEnabled">
+                        <ul class="error">
+                            <li *ngIf="lastname.hasError('required')" style="color: red;">Last Name is required.</li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+            </ng-container>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="text" class="form-control" id="email" name="email" #email="ngModel"
+                    [(ngModel)]="userData.email" required email
+                    [ngClass]="{'invalid-data': (userForm?.submitted || email?.touched) && email?.invalid && validationEnabled}">
+                <div
+                    *ngIf="(userForm?.submitted || userForm.form.controls.email?.touched) && userForm.controls.email?.invalid && validationEnabled">
+                    <ul class="error">
+                        <li *ngIf="email.hasError('required')" style="color: red;">E-mail is required.</li>
+                        <li *ngIf="email.hasError('email')" style="color: red;">E-mail is not valid.</li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" name="phone" #phone="ngModel"
+                    [(ngModel)]="userData.phone" minlength="9" maxlength="12" pattern="[0-9]{0,12}" required
+                    [ngClass]="{'invalid-data': (userForm?.submitted || phone?.touched) && phone?.invalid && validationEnabled}">
+                <div *ngIf="(userForm?.submitted || phone?.touched) && phone?.invalid && validationEnabled">
+                    <ul class="error">
+                        <li *ngIf="phone.hasError('required')" style="color: red;">Phone is required.</li>
+                        <li *ngIf="phone.hasError('pattern')" style="color: red;">Only numbers allowed.</li>
+                        <li *ngIf="phone.hasError('minlength')" style="color: red;">Minimum 9 digits required.</li>
+                        <li *ngIf="phone.hasError('maxlength')" style="color: red;">Maximum 12 digits allowed.</li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="state">State</label>
+                <select class="form-control form-select" id="state" name="state" #state="ngModel"
+                    [(ngModel)]="userData.state" required
+                    [ngClass]="{'invalid-data': (userForm?.submitted || state?.touched) && state?.invalid && validationEnabled}">
+                    <option value="" selected>Please select</option>
+                    <option *ngFor="let state of stateList" [value]="state">{{state}}</option>
+                </select>
+                <div *ngIf="(userForm?.submitted || state?.touched) && state?.invalid && validationEnabled">
+                    <ul class="error">
+                        <li *ngIf="state.hasError('required')" style="color: red;">State is required.</li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <ng-select [clearable]="false" placeholder="Select Country" name="country" #country="ngModel"
+                    notFoundText="No Country found" [items]="countryList" bindLabel="name" bindValue="id"
+                    [(ngModel)]="userData.country" required
+                    [ngClass]="{'invalid-data': (userForm?.submitted || country?.touched) && country?.invalid && validationEnabled}">
+                    <!-- <ng-template ng-notfound-tmp>
+                        <div class="ng-option ng-option-disabled">No Country Found</div>
+                    </ng-template> -->
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index"
+                        let-search="searchTerm">
+                        {{item.name}}
+                        <i class="done-icon-cls" *ngIf="item$.selected"></i>
+                    </ng-template>
+                </ng-select>
+                <div *ngIf="(userForm?.submitted || country?.touched) && country?.invalid && validationEnabled">
+                    <ul class="error">
+                        <li *ngIf="country.hasError('required')" style="color: red;">Country is required.</li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+                <button type="button" class="btn btn-danger" (click)="resetForm(userForm)">Reset</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <pre>{{userForm.value | json}}</pre>
+    <br>
+    <button type="button" class="btn btn-warning" (click)="reloadComponent()">Refresh Component</button>
+</div>

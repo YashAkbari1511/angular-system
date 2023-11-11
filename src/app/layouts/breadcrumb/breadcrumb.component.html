@@ -1,0 +1,15 @@
+<ng-container *ngIf="commonService?.breadCrumbData$ | async as breadCrumbList">
+    <div class="breadcrumb">
+        <ul>
+            <li *ngFor="let breadCrumbRow of breadCrumbList.linkList">
+                <ng-container *ngIf="breadCrumbRow?.link; else withoutLink">
+                    <a routerLink="{{breadCrumbRow.link}}">{{ breadCrumbRow?.label || '' }}</a>
+                </ng-container>
+                <ng-template #withoutLink>{{ breadCrumbRow?.label || '' }}</ng-template>
+            </li>
+        </ul>
+    </div>
+    <div class="page-title">
+        <h4>{{ breadCrumbList.pageTitle }}</h4>
+    </div>
+</ng-container>

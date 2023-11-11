@@ -1,0 +1,80 @@
+[
+    {
+      "id": "1",
+      "employee_firstName": "amit",
+      "employee_lastName": "Jha",
+      "employee_email":"amit@gmail.com",
+      "employee_phone":"9998887778",
+      "employee_salary": "0",
+      "employee_status": "Active",
+      "employee_dob": "12/01/2001",
+      "employee_createdAt": "03/03/2023",
+      "employee_age": "0",
+      "profile_image": ""
+    },
+    {
+      "id": "247793",
+      "employee_firstName": "Ana",
+      "employee_lastName": "Jonson",
+      "employee_email":"Ana@gmail.com",
+      "employee_phone":"9988778854",
+      "employee_salary": "12,333",
+      "employee_status": "InActive",
+      "employee_dob": "14/03/1999",
+      "employee_createdAt": "03/03/2023",
+      "employee_age": "123",
+      "profile_image": ""
+    },
+    {
+      "id": "247856",
+      "employee_firstName": "Joseph",
+      "employee_lastName": "Beltran",
+      "employee_email":"joseph@gmail.com",
+      "employee_phone":"8877889954",
+      "employee_salary": "10,000",
+      "employee_status": "InActive",
+      "employee_dob": "17/03/2003",
+      "employee_createdAt": "03/03/2015",
+      "employee_age": "23",
+      "profile_image": ""
+    },
+    {
+      "id": "247982",
+      "employee_firstName": "testyeyyeye1",
+      "employee_lastName": "testyeyyeye1",
+      "employee_email":"testyeyyeye1@gmail.com",
+      "employee_phone":"66578442144",
+      "employee_salary": "12,000",
+      "employee_status": "InActive",
+      "employee_dob": "03/03/2003",
+      "employee_createdAt": "03/03/2021",
+      "employee_age": "23",
+      "profile_image": ""
+    },
+    {
+      "id": "248007",
+      "employee_firstName": "Shreyans",
+      "employee_lastName": "Shah",
+      "employee_email":"shreyans@gmail.com",
+      "employee_phone":"95798547800",
+      "employee_salary": "12,999",
+      "employee_dob": "19/01/1999",
+      "employee_createdAt": "03/03/2022",
+      "employee_status": "Active",
+      "employee_age": "23",
+      "profile_image": ""
+    },
+    {
+      "id": "248038",
+      "employee_firstName": "Hendry",
+      "employee_lastName": "Rock",
+      "employee_email":"hendry@gmail.com",
+      "employee_phone":"7894561258",
+      "employee_salary": "50,000",
+      "employee_dob": "15/01/1999",
+      "employee_createdAt": "03/03/2020",
+      "employee_status": "InActive",
+      "employee_age": "26",
+      "profile_image": ""
+    }
+  ]

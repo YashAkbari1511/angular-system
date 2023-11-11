@@ -1,0 +1,22 @@
+<!--  Change Detection example start -->
+<div class="card">
+    <div class="card-header flex-wrap datatable-custom-header">
+        <!-- <div class="container"> -->
+        <h3> Parent component </h3>
+
+
+        Name: <input type='text' [(ngModel)]="person.name">
+        <br /> <br /> Age:
+        <button (click)="person.age = person.age+1">+</button> {{ person.age }}
+        <button (click)="person.age = person.age-1">-</button>
+        <br /><br />
+        <button (click)="reassign()">Re-Assign</button>
+        <br /> <br />
+        <pre>{{ person | json}}</pre>
+
+        <wcg-change-detection-child [person]="person"></wcg-change-detection-child>
+        <!-- </div> -->
+    </div>
+</div>
+
+<!-- Change detection example end -->

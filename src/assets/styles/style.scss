@@ -1,0 +1,50 @@
+@import "variable";
+
+@import "mixins/spacing";
+@import "mixins/color";
+@import "mixins/font";
+@import "../styles/icons/material-design-iconic-font/css/materialdesignicons.min.css";
+
+@import "component/global";
+@import "component/heading";
+
+@import "component/header";
+@import "component/sidebar";
+@import "component/spinner";
+@import "component/card";
+@import "component/dashboard";
+
+@import "responsive";
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+ng-select.ngSelectError .ng-select-container {
+  border-bottom: 1px solid #ed4c78 !important;
+}
+
+.mdc-dialog__title::before {
+  height: 0 !important;
+}
+wcg-header > .mat-mdc-icon-button.mat-mdc-button-base {
+  padding: 0px;
+}
+.mdc-dialog__surface {
+  overflow-x: hidden;
+}
+
+.mdc-data-table__header-cell {
+  color: $headingtext;
+  font-weight: 500;
+}
+
+th {
+  font-weight: normal;
+}
+
+.mat-mdc-card-image.mdc-card__media {
+  position: static !important;
+}
+
+.text-center.mdc-card__actions {
+    display: block;
+}

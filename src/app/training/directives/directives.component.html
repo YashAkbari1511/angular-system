@@ -1,0 +1,84 @@
+<div class="card">
+    <div class="card-header flex-wrap datatable-custom-header overflow-scroll">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th colspan="100%">Directives</th>
+                </tr>
+                <tr>
+                    <td class="px-3 py-4" colspan="2">
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Text Color</label>
+                                    <select class="form-control form-select" [(ngModel)]="className"
+                                        placeholder="Select Text Color">
+                                        <option *ngFor="let item of classNameList" [value]="item?.value">{{item?.label}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Background Color</label>
+                                    <select class="form-control form-select" [(ngModel)]="backgroundColor"
+                                        placeholder="Select Background Color">
+                                        <option *ngFor="let item of backgroundColorList" [value]="item?.value">
+                                            {{item?.label}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr [ngClass]="[className, backgroundColor]">
+                    <td [ngStyle]="{'width': '30%'}">Built-in Directive</td>
+                    <td>
+                        <code>
+                            {{builtInDirective}}
+                        </code>
+                    </td>
+                </tr>
+                <tr [ngClass]="[className, backgroundColor]">
+                    <td [ngStyle]="{'width': '30%'}">Attribute Directive</td>
+                    <td>
+                        <code>
+                            {{attributeDirective}}
+                        </code>
+                    </td>
+                </tr>
+                <tr [ngClass]="[className, backgroundColor]">
+                    <td [ngStyle]="{'width': '30%'}">Structural Directive</td>
+                    <td>
+                        <code>
+                            {{structuralDirective}}
+                        </code>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card mt-5">
+    <div class="card-header flex-wrap datatable-custom-header">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th colspan="100%">Host Listener & HTML Renderer</th>
+                </tr>
+                <tr>
+                    <td>
+                        Is Even Number of Click?
+                    </td>
+                    <td>
+                        <button class="btn btn-sm bg-success" wcgButtonClickCount
+                            (numberOfClicksOut)="numberOfClicksOut($event)">Click Me!</button>
+                    </td>
+                    <td [width]="'30%'">
+                        <b>Click Counter:</b> {{numberOfClicksOutValue}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

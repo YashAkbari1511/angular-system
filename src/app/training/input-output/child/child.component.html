@@ -1,0 +1,14 @@
+<div class="top-block">
+    <h2>Child Component</h2>
+    <div class="child-block" #viewChild>
+        <h4>Selected User from Parent: <span class="text-primary">{{userName}}</span></h4>
+        <div class="form-group pt-4">
+            <label>Change Color of Parent Header</label>
+            <select (change)="onChangeColor()" class="form-control form-select" [(ngModel)]="selectedColor"
+                placeholder="Select Color">
+                <option *ngFor="let item of classNameList" [value]="item?.value">{{item?.label | titlecase}}
+                </option>
+            </select>              
+        </div>
+    </div>
+</div>

@@ -1,0 +1,303 @@
+<wcg-side-panel (closePanel)="closeUserPanel($event)" [panelHeader]="(userId) ? 'Edit User' : 'Add User'">
+    <form [formGroup]="userForm" (ngSubmit)="submitUserData()" autocomplete="off" style="font-size: 14px;">
+        <div class="signup-page">
+            <div *ngIf="fetchingData" style="position: relative; width: 100%; height: 70px;">
+                <wcg-spinner-loader [isSpinning]="fetchingData" [name]="'Loading'">
+                </wcg-spinner-loader>
+            </div>
+            <div *ngIf="!fetchingData" class="accout-access">
+                <div *ngIf="fetchingData" style="position: relative; width: 100%; height: 70px;">
+                    <wcg-loader [name]="'Loading'" [fullScreen]='false' [size]="'medium'"
+                        [isSpinnerShow]="fetchingData">
+                    </wcg-loader>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-lg-3 col-md-12">
+                        <label for="firstNameLabel" class="col-form-label input-label">
+                            First Name & Last Name</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <mat-form-field class="inputRegularFields">
+                                    <input matInput type="text" trim="blur" placeholder="Enter First Name"
+                                        formControlName="firstName" />
+                                </mat-form-field>
+                                <ng-container
+                                    *ngIf="(userForm?.controls['firstName'].touched || submitted ) && !userForm?.controls['firstName'].valid">
+                                    <small class="text-danger support-text"
+                                        *ngIf="userForm?.controls['firstName'].errors?.['required']">
+                                        First Name is required.</small>
+                                    <small class="text-danger support-text"
+                                        *ngIf="userForm?.controls['firstName'].errors?.['cannotContainSpace']">
+                                        White Space not allowed.</small>
+                                    <small class="text-danger support-text"
+                                        *ngIf="!userForm?.controls['firstName'].errors?.['cannotContainSpace'] && userForm?.controls['firstName'].errors?.['pattern']">
+                                        Numbers not allowed.</small>
+                                </ng-container>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="input-group input-group-sm-down-break">
+                                    <mat-form-field class="inputRegularFields">
+                                        <input matInput type="text" trim="blur" placeholder="Enter Last Name"
+                                            formControlName="lastName" />
+                                    </mat-form-field>
+                                    <ng-container
+                                        *ngIf="(userForm?.controls['lastName'].touched || submitted) && !userForm?.controls['lastName'].valid">
+                                        <small class="text-danger support-text"
+                                            *ngIf="userForm?.controls['lastName'].errors?.['required']">
+                                            Last Name is required.</small>
+                                        <small class="text-danger support-text"
+                                            *ngIf="userForm?.controls['lastName'].errors?.['cannotContainSpace']">
+                                            White Space not allowed.</small>
+                                        <small class="text-danger support-text"
+                                            *ngIf="!userForm?.controls['lastName'].errors?.['cannotContainSpace'] && userForm?.controls['lastName'].errors?.['pattern']">
+                                            Numbers not allowed.</small>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class=" col-form-label input-label">Select Role </label>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <ng-select [clearable]="false" formControlName="roleId" placeholder="Select Role"
+                            [items]="usersRoleList" bindLabel="name" bindValue="_id"
+                            [ngClass]="{'ngSelectError': (userForm?.controls['roleId'].touched || userForm?.controls['roleId'].dirty || submitted ) && !userForm?.controls['roleId'].valid}">
+                            <ng-template ng-notfound-tmp>
+                                <div class="ng-option ng-option-disabled">No Role Found</div>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index"
+                                let-search="searchTerm">
+                                {{item.name}}
+                                <i class="done-icon-cls" *ngIf="item$.selected"></i>
+                            </ng-template>
+                        </ng-select>
+                        <ng-container
+                            *ngIf="(userForm?.controls['roleId'].touched || submitted) && !userForm?.controls['roleId'].valid">
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['roleId'].errors?.['required']">
+                                Role is required.</small>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-lg-3 col-md-12">
+                        <label for="phoneLabel" class=" col-form-label input-label">Email</label>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <mat-form-field class="inputRegularFields">
+                            <input matInput type="text" trim="blur" formControlName="email" autocomplete="off"
+                                placeholder="Enter Email" (focusout)="checkMail()" />
+                        </mat-form-field>
+                        <ng-container
+                            *ngIf="(userForm?.controls['email'].touched || submitted) && !userForm?.controls['email'].valid && !userId">
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['email'].errors?.['required']">
+                                Email is required.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['email'].errors?.['pattern']">
+                                Please enter valid Email.</small>
+                        </ng-container>
+                        <small class="text-danger support-text"
+                            *ngIf="userForm?.controls['email'].touched && checkEmail === true">
+                            Email already exist.</small>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="!userId">
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-md-12">
+                            <label for="phoneLabel" class=" col-form-label input-label">Password</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <mat-form-field class="inputRegularFields">
+                                <input matInput type="{{password}}" placeholder="Enter Password"
+                                    formControlName="password" />
+                                <mat-icon matSuffix
+                                    (click)="changeVisibility('password')">{{visibilityPassword}}</mat-icon>
+                            </mat-form-field>
+                            <ng-container
+                                *ngIf="(userForm?.controls['password'].touched || submitted) && !userForm?.controls['password'].valid">
+                                <small class="text-danger support-text"
+                                    *ngIf="userForm?.controls['password'].errors?.['required']">
+                                    Password is required.</small>
+                                <small class="text-danger support-text"
+                                    *ngIf="!userForm?.controls['password'].errors?.['required'] && userForm?.controls['password'].errors?.['strongPassword']">
+                                    Password is Invalid.
+                                </small>
+                            </ng-container>
+                            <div class="password-note">
+                                <label class="card-title">Password Requirements:</label>
+                                <ul class="list-items">
+                                    <li>Minimum 8 characters long - the more, the better</li>
+                                    <li>At least one lowercase and one uppercase character</li>
+                                    <li>At least one number and one special character</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-lg-3 col-md-12">
+                            <label for="phoneLabel" class=" col-form-label input-label">Confirm Password</label>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <mat-form-field class="inputRegularFields">
+                                <input matInput type="{{confirmPassword}}" placeholder="Enter Confirm Password"
+                                    formControlName="confirmPassword" />
+                                <mat-icon matSuffix
+                                    (click)="changeVisibility('confirmPassword')">{{visibilityConfirmPassword}}
+                                </mat-icon>
+                            </mat-form-field>
+                            <ng-container
+                                *ngIf="(userForm?.controls['confirmPassword'].touched || submitted) && !userForm?.controls['confirmPassword'].valid">
+                                <small class="text-danger support-text"
+                                    *ngIf="userForm?.controls['confirmPassword'].errors?.['required']">
+                                    Confirm Password is required.</small>
+                            </ng-container>
+                            <ng-container
+                                *ngIf="(userForm?.controls['confirmPassword'].touched || submitted) && userForm?.controls['confirmPassword'].valid">
+                                <small class="text-danger support-text"
+                                    *ngIf="!userForm?.controls['confirmPassword'].errors?.['required'] && userForm.errors?.['match_error']">
+                                    Password and Confirm Password must be same.</small>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="row form-group">
+                    <div class="col-lg-3 col-md-12">
+                        <label for="phoneLabel" class=" col-form-label input-label">Phone Number</label>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <mat-form-field class="inputRegularFields">
+                            <input matInput type="text" trim="blur" placeholder="Enter Phone Number"
+                                formControlName="mobile" minlength="10" maxlength="10" />
+                        </mat-form-field>
+                        <ng-container
+                            *ngIf="(userForm?.controls['mobile'].touched || submitted) && !userForm?.controls['mobile'].valid">
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['mobile'].errors?.['required']">
+                                Phone Number is required.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['mobile'].errors?.['pattern']">
+                                Please enter only numbers.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['mobile'].errors?.['minlength'] && !userForm?.controls['mobile'].errors?.['pattern']">
+                                Phone Number must be equal to 10 digits.</small>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="row form-group mb-3">
+                    <div class="col-lg-3 col-md-12">
+                        <label class=" col-form-label input-label">State </label>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <ng-select [clearable]="false" formControlName="state" placeholder="Select State"
+                            [items]="usersStateList" bindLabel="label" bindValue="value"
+                            [ngClass]="{
+                        'ngSelectError': (userForm?.controls['state'].touched || submitted ) && !userForm?.controls['state'].valid}">
+                            <ng-template ng-notfound-tmp>
+                                <div class="ng-option ng-option-disabled">No State Found</div>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index"
+                                let-search="searchTerm">
+                                {{item.label}}
+                                <i class="done-icon-cls" *ngIf="item$.selected"></i>
+                            </ng-template>
+                        </ng-select>
+                        <ng-container
+                            *ngIf="(userForm?.controls['state'].touched || submitted) && !userForm?.controls['state'].valid">
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['state'].errors?.['required']">
+                                State is required.</small>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-lg-3 col-md-12">
+                        <label for="phoneLabel" class=" col-form-label input-label">City</label>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <mat-form-field class="inputRegularFields">
+                            <input matInput type="text" trim="blur" placeholder="Enter City" formControlName="city" />
+                        </mat-form-field>
+                        <ng-container
+                            *ngIf="(userForm?.controls['city'].touched || submitted) && !userForm?.controls['city'].valid">
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['city'].errors?.['required']">
+                                City is required.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['city'].errors?.['pattern']">
+                                Please enter only alphabets.</small>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-lg-3 col-md-12">
+                        <label for="zipCodeLabel" class="col-form-label input-label">Address </label>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <mat-form-field class="inputRegularFields">
+                            <input matInput type="text" trim="blur" placeholder="Enter Address"
+                                formControlName="address" />
+                        </mat-form-field>
+                        <ng-container
+                            *ngIf="(userForm?.controls['address'].touched || submitted) && !userForm?.controls['address'].valid">
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['address'].errors?.['required']">
+                                Address is required.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['address'].errors?.['cannotContainSpace']">
+                                White Space not allowed.</small>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-lg-3 col-md-12">
+                        <label for="zipCodeLabel" class=" col-form-label input-label">Zip Code</label>
+                    </div>
+                    <div class="col-lg-9 col-md-12">
+                        <mat-form-field class="inputRegularFields">
+                            <input matInput type="text" trim="blur" placeholder="Enter Zip Code" minlength="5"
+                                maxlength="5" formControlName="zipCode" />
+                        </mat-form-field>
+                        <ng-container
+                            *ngIf="(userForm?.controls['zipCode'].touched || submitted) && !userForm?.controls['zipCode'].valid">
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['zipCode'].errors?.['required']">
+                                Zip Code is required.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['zipCode'].errors?.['pattern']">
+                                Please enter only numbers.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="!userForm?.controls['zipCode'].errors?.['pattern'] && userForm?.controls['zipCode'].errors?.['minlength']">
+                                Zip Code must be equal to 5 digits.</small>
+                            <small class="text-danger support-text"
+                                *ngIf="userForm?.controls['zipCode'].errors?.['cannotContainSpace']">
+                                White Space not allowed.</small>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!fetchingData" class="text-right">
+            <button type="submit" class="btn  mb-1" [disabled]="isLoading"
+                style="margin-right:10px;background-color: #5cb7ff;color: white;">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+                Save</button>
+        </div>
+    </form>
+</wcg-side-panel>

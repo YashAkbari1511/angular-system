@@ -1,0 +1,198 @@
+<div class="container">
+    <h5>User Form</h5>
+    <form class="form" [formGroup]="userForm" (ngSubmit)="saveUserData()" autocomplete="off">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" formControlName="firstname"
+                        [ngClass]="{'invalid-data': (submitted || userForm.controls.firstname?.touched) && userForm.controls.firstname?.invalid}">
+                    <div
+                        *ngIf="(submitted || userForm.controls.firstname?.touched) && userForm.controls.firstname?.invalid">
+                        <ul class="error">
+                            <li *ngIf="userForm.controls.firstname.errors?.required" style="color: red;">First Name
+                                is
+                                required.</li>
+                            <li *ngIf="userForm.controls.firstname.errors?.cannotContainSpace" style="color: red;">
+                                White
+                                space not allowed.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" formControlName="lastname"
+                        [ngClass]="{'invalid-data': (submitted || userForm.controls.lastname?.touched) && userForm.controls.lastname?.invalid}">
+                    <div
+                        *ngIf="(submitted || userForm.controls.lastname?.touched) && userForm.controls.lastname?.invalid">
+                        <ul class="error">
+                            <li *ngIf="userForm.controls.lastname.errors?.required" style="color: red;">Last Name is
+                                required.</li>
+                            <li *ngIf="userForm.controls.firstname.errors?.cannotContainSpace" style="color: red;">
+                                White
+                                space not allowed.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" id="email" name="email" formControlName="email"
+                        [ngClass]="{'invalid-data': (submitted || userForm.controls.email?.touched) && userForm.controls.email?.invalid}">
+                    <div *ngIf="(submitted || userForm.controls.email?.touched) && userForm.controls.email?.invalid">
+                        <ul class="error">
+                            <li *ngIf="userForm.controls.email.errors?.required" style="color: red;">E-mail is
+                                required.</li>
+                            <li *ngIf="userForm.controls.email.errors?.pattern" style="color: red;">E-mail is not
+                                valid.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control" id="phone" name="phone" formControlName="phone"
+                        minlength="10" maxlength="12"
+                        [ngClass]="{'invalid-data': (submitted || userForm.controls.phone?.touched) && userForm.controls.phone?.invalid}">
+                    <div *ngIf="(submitted || userForm.controls.phone?.touched) && userForm.controls.phone?.invalid">
+                        <ul class="error">
+                            <li *ngIf="userForm.controls.phone.errors?.required" style="color: red;">Phone is required.
+                            </li>
+                            <li *ngIf="userForm.controls.phone.errors?.pattern" style="color: red;">Only numbers
+                                allowed.</li>
+                            <li *ngIf="userForm.controls.phone.errors?.minlength" style="color: red;">Minimum 10 digits
+                                required.</li>
+                            <li *ngIf="userForm.controls.phone.errors?.maxlength" style="color: red;">Maximum 12 digits
+                                allowed.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12">
+
+                <div class="form-group">
+                    <label for="state">Birth Date</label>
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="input-group mb-2">
+                                <input type="text" readonly class="form-control" placeholder="Choose a date"
+                                    id="birthDate" name="birthDate" formControlName="birthDate" [max]="maxDate"
+                                    [matDatepicker]="picker" (focus)="picker.open()">
+                                <div class="input-group-append">
+                                    <mat-datepicker-toggle class="mat-date-picker-custom input-group-text" matIconSuffix
+                                        [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="input-group mb-2">
+                                <input wcgDfMmYyyy type="text" readonly class="form-control"
+                                    placeholder="Choose a date (MM-YYYY)" formControlName="birthDate"
+                                    [matDatepicker]="month_year_picker" (focus)="month_year_picker.open()">
+                                <div class="input-group-append">
+                                    <mat-datepicker-toggle class="mat-date-picker-custom input-group-text" matSuffix
+                                        [for]="month_year_picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #month_year_picker startView="multi-year"
+                                        (monthSelected)="monthHandler($event, month_year_picker)"></mat-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 mb-2">
+                            <div class="input-group col-lg-4 col-sm-12">
+                                <input wcgDfDdMmmYyyy type="text" readonly class="form-control"
+                                    placeholder="Choose a date (DD-MMM-YYYY)" formControlName="birthDate" matInput
+                                    [matDatepicker]="wcgDfDdMmmYyyy" (focus)="wcgDfDdMmmYyyy.open()">
+                                <div class="input-group-append">
+                                    <mat-datepicker-toggle class="mat-date-picker-custom input-group-text" matSuffix
+                                        [for]="wcgDfDdMmmYyyy"></mat-datepicker-toggle>
+                                    <mat-datepicker #wcgDfDdMmmYyyy></mat-datepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="(submitted || userForm.controls.birthDate?.touched) && userForm.controls.birthDate?.invalid">
+                            <ul class="error">
+                                <li *ngIf="userForm.controls.birthDate.errors?.required" style="color: red;">Birth Date
+                                    is
+                                    required.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <div class="form-group">
+            <label for="country">Country</label>
+            <select class="form-control form-select" id="country" name="country" formControlName="country"
+                [ngClass]="{'invalid-data': (submitted || userForm.controls.country?.touched) && userForm.controls.country?.invalid}">
+                <option value="" selected>Please select</option>
+                <option *ngFor="let country of countryList" [value]="country">{{country}}</option>
+            </select>
+            <div *ngIf="(submitted || userForm.controls.country?.touched) && userForm.controls.country?.invalid">
+                <ul class="error">
+                    <li *ngIf="userForm.controls.country.errors?.required" style="color: red;">Country is required.</li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+            <button type="button" class="btn btn-danger" (click)="resetForm()">Reset</button>
+        </div>
+    </form>
+    <br>
+    <pre>{{userForm.value | json}}</pre>
+    <hr>
+    <h5>User Details</h5>
+    <div class="card">
+        <div class="card-body flex-wrap datatable-custom-header overflow-scroll">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Birth Date</th>
+                        <th>Country</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="userList.length > 0; else elseTemplate">
+                        <ng-container *ngFor="let item of userList; let index = index;">
+                            <tr>
+                                <td>{{ item?.firstname | titlecase }}</td>
+                                <td>{{ item?.lastname | titlecase }}</td>
+                                <td>{{ item?.email }}</td>
+                                <td>{{ item?.phone | phoneNumber }}</td>
+                                <td>{{ item?.birthDate | date:'mediumDate' }}</td>
+                                <td>{{ item?.country }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="deleteUser(index)">Delete</button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <tr>
+                            <td class="text-center" colspan="100%">Data Not Found!</td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

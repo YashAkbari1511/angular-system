@@ -1,0 +1,53 @@
+<div class="customScrollbar">
+  <table mat-table [dataSource]="dataSource" (matSortChange)="changeSorting($event)">
+    <ng-container *ngFor="let column of displayedCustomSide" [matColumnDef]="column.field">
+      <ng-container *ngIf="column?.isSortable; else elseTemplate">
+        <th class="thead-light" mat-header-cell *matHeaderCellDef mat-sort-header disableClear
+          [attr.colspan]="column.headerColSpan">{{column.label}}</th>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <th class="thead-light" mat-header-cell *matHeaderCellDef [attr.colspan]="column.headerColSpan">{{column.label}}
+        </th>
+      </ng-template>
+      <td mat-cell *matCellDef="let element;">
+        <ng-container [ngSwitch]="column.type">
+          <ng-container *ngSwitchCase="'date'">
+            {{ element[column.field] | dateFormat:'withTime' }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'dataType'">
+            {{ element[column.field] | dataType }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'boolean'">
+            {{ '' + element[column.field] | titlecase }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'phoneNumber'">
+            {{ element[column.field] | phoneNumber }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'number'">
+            {{ element[column.field] ? (element[column.field] | number) : 0 }}
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{ (element[column.field]) ? (element[column.field]) : '-' }}
+          </ng-container>
+        </ng-container>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsHeader"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center text-black-50" [colSpan]="displayedColumnsHeader.length">
+        {{paginationData.notDataMessage}}</td>
+    </tr>
+  </table>
+  <div *ngIf="paginationData?.fetchingData" class="page-loader">
+    <wcg-spinner-loader [isSpinning]="paginationData?.fetchingData" [message]="'Loading'"></wcg-spinner-loader>
+  </div>
+</div>
+<div *ngIf="paginationData.showPagination && paginationData.totalRecord"
+  class="card-footer justify-content-end customScrollbar" style="padding: 0px; margin: 0px;">
+  <wcg-pagination [showTotalRecords]="paginationData.showTotalRecords" [totalRecords]="paginationData.totalRecord"
+    [recordsPerPage]="paginationData.limit" [showPageSizeOptions]="paginationData.showPageSizeOptions"
+    [pageSizeOptions]="paginationData.pageSizeOptions" [pageSize]="paginationData.pageSize"
+    [showCurrentPageInfo]="paginationData.showCurrentPageInfo" [showBoundaryLinks]="paginationData.showBoundaryLinks"
+    (paginationChanged)="paginationChange($event)"></wcg-pagination>
+</div>

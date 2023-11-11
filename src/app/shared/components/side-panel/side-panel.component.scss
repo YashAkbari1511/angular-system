@@ -1,0 +1,36 @@
+.sidenav {
+  width: 540px;
+}
+
+.sidePanel {
+  width: 540px;
+  height: 100vh !important;
+  position: fixed;
+  max-width: 100%;
+}
+
+.panelheader {
+  background-color: rgb(120 130 140 / 13%);
+}
+
+.remove-icon {
+  margin-top: 7px;
+}
+
+.sidePanelCard {
+  margin: 0;
+  height: 100vh;
+
+  .mat-mdc-card-content {
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+}
+
+.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side {
+  z-index: 5;
+}
+
+.commonpanel {
+  z-index: 3;
+}

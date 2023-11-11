@@ -1,0 +1,109 @@
+<div class="card" style="font-size: 14px;">
+    <div class="card-header flex-wrap datatable-custom-header">
+        <div class="row">
+            <div class="col-lg-8 col-9 mb-3">
+                <div class="input-group input-group-merge input-group-flush">
+                    <input type="search" class="form-control p-1" placeholder="Type to search users..."
+                        [(ngModel)]="searchText" (ngModelChange)="onKeySearch($event);" style="font-size: 14px;">
+                </div>
+            </div>
+            <div class="col-lg-4 col-3 mb-3">
+                <div class="upload-btn d-flex flex-wrap justify-content-between align-items-center"
+                    style="float: right;">
+                    <button class="btn btn-sm btn-primary pb-1"
+                        style="background-color: #5cb7ff; border-color:#5cb7ff ;" (click)="openPanel()">
+                        <span>Add</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mat-tables table-responsive datatable-custom" *ngIf="userList$ | async as resUserData">
+            <wcg-customtable [paginationData]="paginationData" [dataSource]="resUserData.data.usersList"
+                [displayedColumnsHeader]="displayedColumnsHeader" [displayedColumns]="displayedColumns"
+                [displayedCustomSide]="displayedCustomSide" (changeTableData)="getUserList($event)" matSort
+                (matSortChange)="changeSorting($event)">
+                <ng-container *ngFor="let column of displayedComponentsSide" [matColumnDef]="column.field">
+                    <ng-container *ngIf="column.isSortable; else doNotSort">
+                        <th class="thead-light" mat-header-cell *matHeaderCellDef [attr.colspan]="column.headerColSpan"
+                            mat-sort-header disableClear>{{column.label}}</th>
+                    </ng-container>
+                    <ng-template #doNotSort>
+                        <th class="thead-light" mat-header-cell *matHeaderCellDef [attr.colspan]="column.headerColSpan">
+                            {{column.label}}</th>
+                    </ng-template>
+                    <ng-container [ngSwitch]="column.field">
+                        <ng-container *ngSwitchCase="'firstName'">
+                            <td class="table-column-pl-0" mat-cell *matCellDef="let element;">
+                                <a class="d-flex align-items-center">
+                                    <div class="avatar avatar-circle">
+                                        <img wcgImageLoader class="avatar-img"
+                                            [src]="element['profilePhoto'] ? element['profilePhoto'] : defaultProfile"
+                                            alt="Image Description" style="max-width: 40px;">
+                                    </div>
+                                    <div class="ms-3">
+                                        <span style="color: #5cb7ff;">{{element['firstName']}}
+                                            {{element['lastName']}}</span>
+                                        <span class="d-block font-size-sm text-body">{{element['email']}}</span>
+                                    </div>
+                                </a>
+                            </td>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'isActive'">
+                            <td mat-cell *matCellDef="let element;">
+                                <ng-container>
+                                    <ng-container *ngIf="element._id === ('_id' | loggedInUser);else canChangeStatus">
+                                        <span
+                                            class="legend-indicator {{element[column.field] | statusData:true}}"></span>
+                                        {{ element['isActive'] | statusData }}
+                                    </ng-container>
+                                    <ng-template #canChangeStatus>
+                                        <a href="javascript:void(0);" style="color: #5cb7ff;"
+                                            (click)="updateStatus(element._id, element.isActive)">
+                                            <span
+                                                class="legend-indicator {{element[column.field] | statusData:true}}"></span>
+                                            {{ element['isActive'] | statusData }}
+                                        </a>
+                                    </ng-template>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'roleName'">
+                            <td mat-cell *matCellDef="let element;">
+                                {{ element.roleName.name }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container *ngSwitchCase="'actionsColumn'">
+                            <td mat-cell *matCellDef="let element;">
+                                <a class="js-hs-unfold-invoker btn btn-sm btn-white" href="javascript:;"
+                                    [matMenuTriggerFor]="matMenu">
+                                    Actions <i class="tio-chevron-down ml-1"></i>
+                                </a>
+                                <mat-menu #matMenu="matMenu" class="table-action-mat-menu">
+                                    <a mat-menu-item class="custome-mat" href="javascript:;"
+                                        (click)="openPanel(element._id)">
+                                        Edit in SidePanel</a>
+                                    <a mat-menu-item class="custome-mat" href="javascript:;"
+                                        (click)="openModal(element._id)">
+                                        Edit in Modal</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a *ngIf="element._id !== ('_id' | loggedInUser)" class="text-danger" mat-menu-item
+                                        class="custome-mat" href="javascript:;"
+                                        (click)="deleteRecord(element)">Delete</a>
+                                </mat-menu>
+                            </td>
+                        </ng-container>
+
+                        <ng-container *ngSwitchDefault>
+                            <td mat-cell *matCellDef="let element;">{{element[column.field]}}</td>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </wcg-customtable>
+        </div>
+    </div>
+</div>
+<wcg-user-manage-panel *ngIf="isUserPanelOpen" [userId]="selectedUserId" (closePanel)="closePanel($event)">
+</wcg-user-manage-panel>

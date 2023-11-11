@@ -1,0 +1,35 @@
+<mat-nav-list>
+    <span *ngFor="let item of menuItems">
+
+        <mat-accordion *ngIf="item?.children?.length">
+            <mat-expansion-panel [expanded]="selectedPanel === item.panelName" (opened)="selectedPanel=item.panelName">
+                <mat-expansion-panel-header [ngClass]="{'selected' : selectedPanel === item.panelName }">
+                    <mat-panel-title>
+                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                            <mat-icon>{{item.iconName}}</mat-icon>
+                            {{item.displayName}}
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <span *ngFor="let child of item.children">
+                    <mat-list-item [routerLink]="child.route" routerLinkActive="selected">
+                        <!-- <div fxLayout="row" fxLayoutAlign="space-between center"> -->
+                        <mat-icon>{{child.iconName}}</mat-icon>
+                        <span>{{child.displayName}}</span>
+
+                        <!-- </div> -->
+                    </mat-list-item>
+                </span>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-list-item *ngIf="!item.children || item.children.length === 0" [routerLink]="item.route"
+            routerLinkActive="selected">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-icon>{{item.iconName}}</mat-icon>
+                {{item.displayName}}
+            </div>
+        </mat-list-item>
+
+    </span>
+</mat-nav-list>

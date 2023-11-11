@@ -1,0 +1,19 @@
+<div class="mt-5 ml-5">
+    <h2 [className]="textColor">Parent Component</h2>
+    <div class="px-3 py-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Select User to Display in Child</label>
+                    <select class="form-control form-select" [(ngModel)]="selectedOption" placeholder="Select User">
+                        <option
+                            *ngFor="let item of ['Jack Aranda', 'Percy Kewshun', 'Fay Daway', 'Chris Anthemum', 'Ray Sin', 'Simon Sais']"
+                            [value]="item">{{item | titlecase}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <wcg-app-child [userName]="selectedOption" (color)="changeColor($event)"></wcg-app-child>
+</div>

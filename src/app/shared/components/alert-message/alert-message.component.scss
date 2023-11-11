@@ -1,0 +1,28 @@
+.alertdialog {
+  position: fixed;
+  top: 50;
+  top: 70px;
+  right: 10px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.alert-success {
+  background-color: #54a254;
+}
+
+.alert-danger {
+  background-color: #842029;
+}
+
+.alert-info {
+  background-color: #055160;
+}
+
+.alert-warning {
+  background-color: #664d03;
+}
+
+.mat-icon {
+  overflow: unset;
+}

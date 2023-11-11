@@ -1,0 +1,8 @@
+<div class="text-center">
+    <h2>Add Child Component Dynamically using ViewContainerRef</h2>
+    <button class="btn btn-success m-3" (click)="onAddChild()">Add Child</button>
+    <div class="flex flex-wrap items-stretch p-2 mb-1">
+        <ng-container #childContainer></ng-container>
+        <button *ngIf="container.length > 0" class="btn btn-danger" (click)="onRemoveComponent()">Remove Component</button>
+    </div>
+</div>

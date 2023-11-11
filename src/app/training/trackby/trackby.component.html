@@ -1,0 +1,15 @@
+<button class="btn btn-primary" (click)="changeIds()">change Ids</button> | <button class="btn btn-danger" (click)="setItems()">Reset</button>
+<br /><br />
+<ul>
+    <h5>For loop:</h5>
+    <li *ngFor="let item of items;">
+        {{item.id}}. {{item.name}} 
+    </li>
+</ul>
+
+<ul>
+    <h5>For loop using TrackBy:</h5>
+    <li *ngFor="let item of items; trackBy: trackByItems">
+        {{item.id}}. {{item.name}} 
+    </li>
+</ul>

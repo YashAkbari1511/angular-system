@@ -1,0 +1,39 @@
+<wcg-api-progress-loader></wcg-api-progress-loader>
+<div class="main-container">
+    <mat-toolbar class="telative" style="background-color: #5cb7ff;">
+        <div class="navbar-header">
+            <a class="navbar-brand" [routerLink]="['/dashboard']">
+                <img wcgImageLoader src="assets/images/logo-light-icon.png" alt="homepage"
+                    class="light-logo rounded-circle" [style.maxWidth.px]="50">
+                <span class="d-none d-sm-block" style="margin-left: 4px;color: white;font-weight: 500;">
+                    COMPANY NAME
+                    <!-- <img wcgImageLoader src="assets/images/logo-light-text.png" alt="homepage" class="light-logo"
+                        style="max-width: 150px;"> -->
+                </span>
+            </a>
+        </div>
+
+        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+            <mat-icon style="color: white;">menu</mat-icon>
+        </button>
+        <span class="flex-grow-1"></span>
+
+        <wcg-header></wcg-header>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="0">
+        <mat-sidenav #snav id="snav" class="customScrollbar" [mode]="mobileQuery.matches ? 'side' : 'over'"
+            fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches">
+            <wcg-sidebar></wcg-sidebar>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="page-wrapper customScrollbar">
+            <div class="page-content">
+                <wcg-breadcrumb></wcg-breadcrumb>
+                <router-outlet>
+                    <wcg-route-change-loader></wcg-route-change-loader>
+                </router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

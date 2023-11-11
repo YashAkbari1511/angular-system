@@ -1,0 +1,7 @@
+.tbody, td, tfoot, th, thead, tr {
+    border-width: thin !important;
+}
+
+.custom-table-wrapper {
+    width: 100%;
+}
